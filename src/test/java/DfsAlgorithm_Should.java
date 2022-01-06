@@ -45,11 +45,11 @@ public class DfsAlgorithm_Should {
         machine.addNode("d");
         machine.addNode("e");
 
-        machine.addEdge("a", "c");
-        machine.addEdge("a", "b");
-        machine.addEdge("c", "d");
-        machine.addEdge("b", "e");
-        machine.addEdge("b", "d");
+        machine.addEdge("a", "c", "edge1");
+        machine.addEdge("a", "b", "edge2");
+        machine.addEdge("c", "d", "edge3");
+        machine.addEdge("b", "e", "edge4");
+        machine.addEdge("b", "d", "edge5");
 
         var nodes = machine.getNodes();
         var nodeA = nodes.stream().filter(x -> x.name.equals("a")).findFirst().get();
@@ -59,10 +59,10 @@ public class DfsAlgorithm_Should {
         var nodeE = nodes.stream().filter(x -> x.name.equals("e")).findFirst().get();
 
         var expectedTraversing = new ArrayList<Edge>();
-        expectedTraversing.add(new Edge(nodeA, nodeB));
-        expectedTraversing.add(new Edge(nodeB, nodeD));
-        expectedTraversing.add(new Edge(nodeB, nodeE));
-        expectedTraversing.add(new Edge(nodeA, nodeC));
+        expectedTraversing.add(new Edge(nodeA, nodeB, "edge2"));
+        expectedTraversing.add(new Edge(nodeB, nodeD, "edge5"));
+        expectedTraversing.add(new Edge(nodeB, nodeE, "edge4"));
+        expectedTraversing.add(new Edge(nodeA, nodeC, "edge1"));
 
         var expectedSteps = new ArrayList<TraversingStep>();
         expectedSteps.add(new TraversingStep(expectedTraversing.subList(0, 1)));

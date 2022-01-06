@@ -19,18 +19,18 @@ public class StateMachine {
         nodes.add(newNode);
     }
 
-    public void addEdge(String from, String to){
-        addEdge(from, to, 0d);
+    public void addEdge(String from, String to, String name){
+        addEdge(from, to, name, 0d);
     }
 
-    public void addEdge(String from, String to, double weight){
+    public void addEdge(String from, String to, String name, double weight){
         Node fromNode = findNodeByName(from);
         Node toNode = findNodeByName(to);
 
         if (fromNode == null || toNode == null)
             throw new RuntimeException("Вершины с такими именами не существуют");
 
-        Edge firstEdge = new Edge(fromNode, toNode, weight);
+        Edge firstEdge = new Edge(fromNode, toNode, name, weight);
 
         fromNode.addEdge(firstEdge);
     }

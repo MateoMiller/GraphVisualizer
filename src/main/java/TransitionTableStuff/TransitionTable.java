@@ -1,6 +1,5 @@
 package TransitionTableStuff;
 
-import Infrastructure.Node;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -37,6 +36,8 @@ public class TransitionTable {
     }
 
     public String getNextCondition(String startNode, String edge) {
+        if (!nodes.contains(startNode) || !edges.contains(edge))
+            throw new RuntimeException("Таких вершин/ребер не существует");
         Pair<String, String> pair = new ImmutablePair<>(startNode, edge);
         return transitions.getOrDefault(pair, null);
     }
