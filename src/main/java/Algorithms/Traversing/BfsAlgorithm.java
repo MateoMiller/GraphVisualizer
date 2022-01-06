@@ -1,11 +1,10 @@
 package Algorithms.Traversing;
 
-import Algorithms.AlgorithmStep;
+import Algorithms.AlgorithmResult;
 
 public class BfsAlgorithm extends TraversingAlgorithm {
-
     @Override
-    public AlgorithmStep Solve() {
+    public AlgorithmResult solve() {
         return null;
     }
 }

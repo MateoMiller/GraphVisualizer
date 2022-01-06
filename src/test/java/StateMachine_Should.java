@@ -1,44 +1,43 @@
-import Infrastructure.Graph;
-import Infrastructure.Node;
+import Infrastructure.StateMachine;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-public class Graph_Should {
+public class StateMachine_Should {
     @Test
     public void getNodes_ReturnsEmpty_WhenNoNodesWasAdded() {
-        Graph g = new Graph();
+        StateMachine machine = new StateMachine();
 
-        assertThat(g.getNodes())
+        assertThat(machine.getNodes())
                 .isEmpty();
     }
 
     @Test
     public void getNodes_ReturnsEmpty_WhenWasCleared() {
-        Graph g = new Graph();
+        StateMachine machine = new StateMachine();
 
-        g.addNode("1");
-        g.clear();
+        machine.addNode("1");
+        machine.clear();
 
-        assertThat(g.getNodes())
+        assertThat(machine.getNodes())
                 .isEmpty();
     }
 
     @Test
     public void addNode_ThrowWhenNodeWithSameNameAlreadyExists() {
-        Graph g = new Graph();
+        StateMachine machine = new StateMachine();
 
-        g.addNode("1");
+        machine.addNode("1");
 
-        assertThrows(Exception.class, () -> g.addNode("1"));
+        assertThrows(Exception.class, () -> machine.addNode("1"));
     }
 
     @Test
     public void removeNode_NotContainRemovedNode() {
-        Graph actual = new Graph();
-        Graph expected = new Graph();
+        StateMachine actual = new StateMachine();
+        StateMachine expected = new StateMachine();
         expected.addNode("1");
         expected.addNode("3");
 
@@ -54,8 +53,8 @@ public class Graph_Should {
 
     @Test
     public void removeNode_NotChangeGraphWhenNodeWithGivenNameDoesNotExists() {
-        Graph actual = new Graph();
-        Graph expected = new Graph();
+        StateMachine actual = new StateMachine();
+        StateMachine expected = new StateMachine();
         expected.addNode("1");
 
         actual.addNode("1");

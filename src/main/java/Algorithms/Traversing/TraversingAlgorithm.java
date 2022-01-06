@@ -1,19 +1,17 @@
 package Algorithms.Traversing;
 
 import Algorithms.Algorithm;
-import Infrastructure.Graph;
-import Infrastructure.Node;
+import Infrastructure.StateMachine;
 
 public abstract class TraversingAlgorithm implements Algorithm {
-    protected Node startNode;
-    protected Graph graph;
+    protected String startNodeName;
+    protected StateMachine stateMachine;
 
-    public void SetStartNode(Node node) {
-        this.startNode = node;
+    public void setStartNode(String startNodeName) {
+        this.startNodeName = startNodeName;
     }
 
-    public void SetGraph(Graph graph){
-        this.graph = graph;
-        this.startNode = null;
+    public void setMachine(StateMachine stateMachine){
+        this.stateMachine = stateMachine;
     }
 }

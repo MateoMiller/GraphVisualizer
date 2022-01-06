@@ -3,7 +3,7 @@ package Infrastructure;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Graph {
+public class StateMachine {
     private final List<Node> nodes = new ArrayList<>();
 
     public List<Node> getNodes(){
@@ -19,33 +19,28 @@ public class Graph {
         nodes.add(newNode);
     }
 
-    public void addDirectedEdge(String from, String to){
-        Node nodeFrom = findNodeByName(from);
-        Node nodeTo = findNodeByName(to);
-
-        if (nodeFrom == null || nodeTo == null)
-            throw new RuntimeException("Вершины с такими именами не существуют");
-
-        Edge edge = new Edge(nodeFrom, nodeTo);
-        nodeFrom.addEdge(edge);
+    public void addEdge(String from, String to){
+        addEdge(from, to, 0d);
     }
 
-    public void addUndirectedEdge(String firstNodeName, String secondNodeName){
-        Node first = findNodeByName(firstNodeName);
-        Node second = findNodeByName(secondNodeName);
+    public void addEdge(String from, String to, double weight){
+        Node fromNode = findNodeByName(from);
+        Node toNode = findNodeByName(to);
 
-        if (first == null || second == null)
+        if (fromNode == null || toNode == null)
             throw new RuntimeException("Вершины с такими именами не существуют");
 
-        Edge firstEdge = new Edge(first, second);
-        Edge secondEdge = new Edge(second, first);
-        first.addEdge(firstEdge);
-        second.addEdge(secondEdge);
+        Edge firstEdge = new Edge(fromNode, toNode, weight);
+
+        fromNode.addEdge(firstEdge);
     }
 
     public void removeNode(String nodeName)
     {
         for (int i = 0; i < nodes.size(); i++) {
+            nodes.get(i)
+                    .edges
+                    .removeIf(x -> x.to.name.equals(nodeName));
             if (nodes.get(i).name.equals(nodeName)){
                 nodes.remove(i);
                 i--;

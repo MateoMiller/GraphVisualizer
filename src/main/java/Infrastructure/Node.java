@@ -1,12 +1,12 @@
 package Infrastructure;
 
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Node {
-    public Point2D position;
     public String name;
-    public List<Edge> edges;
+    public List<Edge> edges = new ArrayList<>();
 
     public Node(String name) {
         this.name = name;

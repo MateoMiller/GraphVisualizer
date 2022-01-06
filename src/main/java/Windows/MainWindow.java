@@ -103,8 +103,18 @@ public class MainWindow extends JFrame {
                     }
                 });
 
+        JMenuItem determiningItem = new JMenuItem(
+                new AbstractAction("Преобразовать в ДКА") {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        System.out.println("Преобразую в ДКА");
+                    }
+                }
+        );
+
         algorithmMenu.add(bfsItem);
         algorithmMenu.add(dfsItem);
+        algorithmMenu.add(determiningItem);
 
         menu.add(algorithmMenu);
     }

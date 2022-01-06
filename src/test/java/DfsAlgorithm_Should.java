@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-public class BfsAlgorithm_Should {
+public class DfsAlgorithm_Should {
     @Test
     public void solve_Throw_WhenStartNodeWasNotInitializedAndGraphIsNotEmpty(){
         var algorithm = new BfsAlgorithm();
@@ -60,9 +60,9 @@ public class BfsAlgorithm_Should {
 
         var expectedTraversing = new ArrayList<Edge>();
         expectedTraversing.add(new Edge(nodeA, nodeB));
-        expectedTraversing.add(new Edge(nodeA, nodeC));
         expectedTraversing.add(new Edge(nodeB, nodeD));
         expectedTraversing.add(new Edge(nodeB, nodeE));
+        expectedTraversing.add(new Edge(nodeA, nodeC));
 
         var expectedSteps = new ArrayList<TraversingStep>();
         expectedSteps.add(new TraversingStep(expectedTraversing.subList(0, 1)));
