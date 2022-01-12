@@ -1,23 +1,35 @@
 package Infrastructure;
 
-import java.awt.*;
+import java.util.HashSet;
+import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 public class Edge {
     public Node from, to;
-    public String name;
-    public double weight;
+    public HashSet<TransitionChar> transitionChars;
 
-    public Edge(Node from, Node to, String name){
-        this.name = name;
+    public Edge(Node from, Node to) {
         this.from = from;
         this.to = to;
-        this.weight = 0;
+        this.transitionChars = new HashSet<>();
     }
 
-    public Edge(Node from, Node to, String name, double weight){
-        this.from = from;
-        this.to = to;
-        this.name = name;
-        this.weight = weight;
+    public void addTransitionChar(TransitionChar transitionChar) {
+        if (!transitionChars.add(transitionChar))
+            throw new RuntimeException("Данный переход уже существует");
+    }
+
+    public void removeTransitionChar(TransitionChar transitionChar) {
+        if (!transitionChars.remove(transitionChar)){
+            throw new RuntimeException("Такого перехода не существует");
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "from:= " + from.name + ", to:= " + to.name + ", transitions:=" +
+                transitionChars.stream()
+                        .map(x -> Character.toString(x.character))
+                        .collect(Collectors.joining(","));
     }
 }
