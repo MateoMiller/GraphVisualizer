@@ -1,4 +1,4 @@
-package Infrastructure;
+package StateMachineInfrastructure;
 
 import java.util.ArrayList;
 import java.util.List;

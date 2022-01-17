@@ -3,12 +3,11 @@ package Windows;
 import Algorithms.AlgorithmStep;
 import Algorithms.Minimalizing.MinimalizingGroup;
 import Algorithms.Minimalizing.MinimalizingStep;
-import TransitionTableStuff.TransitionTable;
+import TransitionTableInfrasturcture.TransitionTable;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-import java.util.Random;
 
 public class MinimalizingPanel extends AlgorithmPanel {
     private final TransitionTable table;
@@ -34,14 +33,14 @@ public class MinimalizingPanel extends AlgorithmPanel {
         add(new JLabel());
         for (var group : groups) {
             for (var state: group.states) {
-                add(new JLabel(state));
+                add(new JLabel(group.groupName));
             }
         }
 
         add(new JLabel());
         for (var group : groups) {
             for (var state: group.states) {
-                add(new JLabel(group.groupName));
+                add(new JLabel(state));
             }
         }
 

@@ -3,7 +3,7 @@ package Windows;
 import Algorithms.Algorithm;
 import Algorithms.AlgorithmResult;
 import Algorithms.AlgorithmStep;
-import Infrastructure.StateMachine;
+import StateMachineInfrastructure.StateMachine;
 
 import javax.swing.*;
 import java.awt.*;

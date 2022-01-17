@@ -1,7 +1,6 @@
-package Infrastructure;
+package StateMachineInfrastructure;
 
 import java.util.HashSet;
-import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 public class Edge {

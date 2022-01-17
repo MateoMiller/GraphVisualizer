@@ -3,15 +3,12 @@ package Algorithms.Minimalizing;
 import Algorithms.Algorithm;
 import Algorithms.AlgorithmResult;
 import Algorithms.AlgorithmStep;
-import Infrastructure.StateMachine;
-import Infrastructure.TransitionChar;
-import TransitionTableStuff.MachineToTransitionTableConverter;
-import TransitionTableStuff.TransitionTable;
+import StateMachineInfrastructure.StateMachine;
+import StateMachineInfrastructure.TransitionChar;
+import TransitionTableInfrasturcture.MachineToTransitionTableConverter;
+import TransitionTableInfrasturcture.TransitionTable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class MinimalizingAlgorithm implements Algorithm {
@@ -24,9 +21,19 @@ public class MinimalizingAlgorithm implements Algorithm {
 
     @Override
     public AlgorithmResult solve() {
+        var startNode = machine.getStartNode();
+
+        if (startNode == null)
+            throw new RuntimeException("Стартовая вершина должна быть проинициализированной");
+        if (machine.getFinalNodes().isEmpty())
+            throw new RuntimeException("Должна быть хотя бы одна конечная вершина");
+
         TransitionTable table = toTransitionTableConverter.convert(machine);
         List<AlgorithmStep> steps = new ArrayList<>();
-        var currentSeparation = separateOnFinalAndNonFinalNodes();
+
+        var reachableStates = getReachableStates(startNode.name, table);
+
+        var currentSeparation = separateOnFinalAndNonFinalNodes(reachableStates);
 
         while (currentSeparation != null){
             var step = new MinimalizingStep(currentSeparation);
@@ -40,20 +47,27 @@ public class MinimalizingAlgorithm implements Algorithm {
         return result;
     }
 
-    private List<MinimalizingGroup> separateOnFinalAndNonFinalNodes(){
+    private List<MinimalizingGroup> separateOnFinalAndNonFinalNodes(HashSet<String> reachableStates){
         var finalNodes = machine
                 .getFinalNodes()
                 .stream()
                 .map(x -> x.name)
+                .filter(reachableStates::contains)
                 .collect(Collectors.toList());
 
         var nonFinalNodes = machine.getNodes()
                 .stream()
                 .map(x -> x.name)
-                .filter(x -> !finalNodes.contains(x))
+                .filter(x -> !finalNodes.contains(x) && reachableStates.contains(x))
                 .collect(Collectors.toList());
 
         var groups = new ArrayList<MinimalizingGroup>();
+
+        if (finalNodes.isEmpty())
+            throw new RuntimeException("Нет достижимых конечных состояний");
+
+        if (nonFinalNodes.isEmpty())
+            throw new RuntimeException("Нет достижимых не конечных состояний");
 
         addNewGroup(groups, nonFinalNodes);
         addNewGroup(groups, finalNodes);
@@ -108,6 +122,27 @@ public class MinimalizingAlgorithm implements Algorithm {
         }
 
         throw new RuntimeException("Что-то пошло не так");
+    }
+
+    private HashSet<String> getReachableStates(String startState, TransitionTable table){
+        var stack = new ArrayDeque<String>();
+        var visited = new HashSet<String>();
+        var alphabet = table.getAlphabet();
+        stack.add(startState);
+        visited.add(startState);
+        while (!stack.isEmpty()){
+            var state = stack.pop();
+
+            for (var symbol: alphabet) {
+                var newState = table.getNextCondition(state, symbol);
+                if (newState != null && !visited.contains(newState)){
+                    stack.push(newState);
+                    visited.add(newState);
+                }
+            }
+        }
+
+        return visited;
     }
 
     public static void main(String[] args){

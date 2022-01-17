@@ -1,4 +1,4 @@
-package Windows.GraphicalStuff;
+package Windows.GraphicalInfrastucture;
 
 import java.awt.*;
 

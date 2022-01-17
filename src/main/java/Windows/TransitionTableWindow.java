@@ -1,11 +1,12 @@
 package Windows;
 
-import Infrastructure.ObjectProvider;
-import Infrastructure.StateMachine;
-import Infrastructure.TransitionChar;
-import TransitionTableStuff.MachineToTransitionTableConverter;
+import StateMachineInfrastructure.ObjectProvider;
+import StateMachineInfrastructure.StateMachine;
+import StateMachineInfrastructure.TransitionChar;
+import TransitionTableInfrasturcture.MachineToTransitionTableConverter;
 import javax.swing.*;
 import java.awt.*;
+import java.util.stream.Collectors;
 
 public class TransitionTableWindow extends JDialog {
     private final ObjectProvider<StateMachine> machineProvider;
@@ -33,11 +34,17 @@ public class TransitionTableWindow extends JDialog {
 
         var startStatePanel = new JPanel(new GridLayout(1, 2));
         startStatePanel.add(new JLabel("Входное состояние"));
+        var startState = machineProvider.getObject().getStartNode().name;
+        startStateField.setText(startState != null ? startState: "");
         startStatePanel.add(startStateField);
         add(startStatePanel);
 
         var finalStatesPanel = new JPanel(new GridLayout(1, 2));
         finalStatesPanel.add(new JLabel("Конечные состояния (через запятую)"));
+        var finalStates = machineProvider.getObject().getFinalNodes();
+        finalStatesField.setText(finalStates.isEmpty() ?
+                "" :
+                finalStates.stream().map(x -> x.name).collect(Collectors.joining(",")));
         finalStatesPanel.add(finalStatesField);
         add(finalStatesPanel);
 

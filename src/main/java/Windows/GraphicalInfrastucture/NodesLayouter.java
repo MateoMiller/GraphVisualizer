@@ -1,7 +1,7 @@
-package Windows.GraphicalStuff;
+package Windows.GraphicalInfrastucture;
 
-import Infrastructure.Node;
-import Infrastructure.StateMachine;
+import StateMachineInfrastructure.Node;
+import StateMachineInfrastructure.StateMachine;
 
 import java.awt.*;
 import java.util.HashMap;

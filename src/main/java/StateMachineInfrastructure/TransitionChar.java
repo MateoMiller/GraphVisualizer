@@ -1,4 +1,4 @@
-package Infrastructure;
+package StateMachineInfrastructure;
 
 public class TransitionChar {
     public boolean isLambda;

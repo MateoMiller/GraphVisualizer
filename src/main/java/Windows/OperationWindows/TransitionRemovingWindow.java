@@ -1,7 +1,7 @@
 package Windows.OperationWindows;
 
-import Infrastructure.StateMachine;
-import Infrastructure.TransitionChar;
+import StateMachineInfrastructure.StateMachine;
+import StateMachineInfrastructure.TransitionChar;
 
 import javax.swing.*;
 import java.awt.*;

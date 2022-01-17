@@ -1,7 +1,7 @@
-package Windows.GraphicalStuff;
+package Windows.GraphicalInfrastucture;
 
-import Infrastructure.Edge;
-import Infrastructure.Node;
+import StateMachineInfrastructure.Edge;
+import StateMachineInfrastructure.Node;
 
 import java.awt.*;
 

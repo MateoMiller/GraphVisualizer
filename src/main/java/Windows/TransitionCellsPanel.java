@@ -1,8 +1,8 @@
 package Windows;
 
-import Infrastructure.StateMachine;
-import Infrastructure.TransitionChar;
-import TransitionTableStuff.TransitionTable;
+import StateMachineInfrastructure.StateMachine;
+import StateMachineInfrastructure.TransitionChar;
+import TransitionTableInfrasturcture.TransitionTable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -57,17 +57,17 @@ public class TransitionCellsPanel extends JPanel {
         removeAll();
         setLayout(new GridLayout(height + 3, width + 3));
 
-        add(new JLabel("1"));
-        add(new JLabel("2"));
+        add(new JLabel());
+        add(new JLabel());
         for (int x = 0; x < width; x++){
             var removeStateButton = new JButton("X");
             int iCopy = x;
             removeStateButton.addActionListener(e -> removeState(iCopy));
             add(removeStateButton);
         }
-        add(new JLabel("3"));
+        add(new JLabel());
 
-        add(new JLabel("4"));
+        add(new JLabel());
         add(new JLabel("Переход\\Состояние"));
         for (JTextField stateField : stateFields) {
             add(stateField);

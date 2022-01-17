@@ -1,6 +1,6 @@
-import Infrastructure.StateMachine;
-import TransitionTableStuff.MachineToTransitionTableConverter;
-import TransitionTableStuff.TransitionTable;
+import StateMachineInfrastructure.StateMachine;
+import TransitionTableInfrasturcture.MachineToTransitionTableConverter;
+import TransitionTableInfrasturcture.TransitionTable;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;

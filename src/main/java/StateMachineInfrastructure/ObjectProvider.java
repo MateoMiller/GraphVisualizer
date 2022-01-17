@@ -1,4 +1,4 @@
-package Infrastructure;
+package StateMachineInfrastructure;
 
 public class ObjectProvider<T> {
     private T object;

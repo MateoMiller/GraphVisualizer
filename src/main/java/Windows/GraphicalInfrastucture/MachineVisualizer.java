@@ -1,9 +1,9 @@
-package Windows.GraphicalStuff;
+package Windows.GraphicalInfrastucture;
 
-import Infrastructure.Edge;
-import Infrastructure.Node;
-import Infrastructure.StateMachine;
-import Infrastructure.TransitionChar;
+import StateMachineInfrastructure.Edge;
+import StateMachineInfrastructure.Node;
+import StateMachineInfrastructure.StateMachine;
+import StateMachineInfrastructure.TransitionChar;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 

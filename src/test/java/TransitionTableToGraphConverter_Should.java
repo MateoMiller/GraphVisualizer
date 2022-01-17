@@ -1,6 +1,6 @@
-import Infrastructure.StateMachine;
-import TransitionTableStuff.TransitionTable;
-import TransitionTableStuff.TransitionTableToMachineConverter;
+import StateMachineInfrastructure.StateMachine;
+import TransitionTableInfrasturcture.TransitionTable;
+import TransitionTableInfrasturcture.TransitionTableToMachineConverter;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

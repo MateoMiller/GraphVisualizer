@@ -1,4 +1,4 @@
-import Infrastructure.StateMachine;
+import StateMachineInfrastructure.StateMachine;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

@@ -1,6 +1,6 @@
-package Windows.GraphicalStuff;
+package Windows.GraphicalInfrastucture;
 
-import Infrastructure.Edge;
+import StateMachineInfrastructure.Edge;
 
 import java.awt.*;
 import java.util.stream.Collectors;

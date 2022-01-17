@@ -1,12 +1,12 @@
 package Windows;
 
 import Algorithms.Minimalizing.MinimalizingAlgorithm;
-import Infrastructure.ObjectProvider;
-import Infrastructure.StateMachine;
-import Infrastructure.TransitionChar;
-import TransitionTableStuff.MachineToTransitionTableConverter;
-import Windows.GraphicalStuff.ConstantPalette;
-import Windows.GraphicalStuff.MachineVisualizer;
+import StateMachineInfrastructure.ObjectProvider;
+import StateMachineInfrastructure.StateMachine;
+import StateMachineInfrastructure.TransitionChar;
+import TransitionTableInfrasturcture.MachineToTransitionTableConverter;
+import Windows.GraphicalInfrastucture.ConstantPalette;
+import Windows.GraphicalInfrastucture.MachineVisualizer;
 import Windows.OperationWindows.*;
 
 import javax.swing.*;
@@ -133,12 +133,16 @@ public class MainWindow extends JFrame {
     }
 
     private void minimalize() {
-        var machine =machineProvider.getObject();
-        var transitionTable = toTransitionTableConverter.convert(machine);
-        var algorithm = new MinimalizingAlgorithm(machine);
-        var algorithmPanel = new MinimalizingPanel(transitionTable);
-        var window = new AlgorithmWindow(this, machine, algorithm, algorithmPanel);
-        openChildWindow(window);
+        try {
+            var machine = machineProvider.getObject();
+            var transitionTable = toTransitionTableConverter.convert(machine);
+            var algorithm = new MinimalizingAlgorithm(machine);
+            var algorithmPanel = new MinimalizingPanel(transitionTable);
+            var window = new AlgorithmWindow(this, machine, algorithm, algorithmPanel);
+            openChildWindow(window);
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }
 
     private void determine() {

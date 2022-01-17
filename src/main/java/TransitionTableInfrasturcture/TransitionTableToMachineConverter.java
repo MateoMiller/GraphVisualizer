@@ -1,7 +1,7 @@
-package TransitionTableStuff;
+package TransitionTableInfrasturcture;
 
-import Infrastructure.StateMachine;
-import Infrastructure.TransitionChar;
+import StateMachineInfrastructure.StateMachine;
+import StateMachineInfrastructure.TransitionChar;
 
 public class TransitionTableToMachineConverter {
     public StateMachine convert(TransitionTable table){
