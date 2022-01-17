@@ -24,7 +24,7 @@ public class StateMachine {
             nodes.add(newNode);
         }
         if (exists)
-            throw new RuntimeException("Такая вершина уже существует");
+            throw new RuntimeException("Такая вершина уже существует: " + newNodeName);
     }
 
     public void setStartNode(String nodeName) {

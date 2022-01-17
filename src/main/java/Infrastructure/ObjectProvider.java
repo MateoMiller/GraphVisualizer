@@ -1,4 +1,4 @@
-package Windows;
+package Infrastructure;
 
 public class ObjectProvider<T> {
     private T object;

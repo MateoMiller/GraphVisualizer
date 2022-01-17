@@ -1,4 +1,4 @@
-package Windows;
+package Windows.OperationWindows;
 
 import Infrastructure.StateMachine;
 import Infrastructure.TransitionChar;
@@ -6,24 +6,22 @@ import Infrastructure.TransitionChar;
 import javax.swing.*;
 import java.awt.*;
 
-public class TransitionAddingWindow extends JDialog {
+public class TransitionRemovingWindow extends JDialog {
     StateMachine machine;
     JTextField firstNodeTextField;
     JTextField secondNodeTextField;
     JTextField transitionCharTextField;
 
-    public TransitionAddingWindow(StateMachine machine, JFrame parent){
+    public TransitionRemovingWindow(StateMachine machine, JFrame parent){
         super(parent);
         this.machine = machine;
-        this.setTitle("Добавить переход");
+        this.setTitle("Удалить переход");
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize(Math.round(dim.width * 0.5f), Math.round(dim.height * 0.5f));
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 
         var cp = getContentPane();
         var layout = new BoxLayout(cp, BoxLayout.Y_AXIS);
-        var empty = new JLabel();
-
 
         JLabel firstNodeLabel = new JLabel("Имя первой вершины: ");
         firstNodeTextField = new JTextField();
@@ -31,6 +29,7 @@ public class TransitionAddingWindow extends JDialog {
         secondNodeTextField = new JTextField();
         JLabel transitionCharLabel = new JLabel("Символ перехода: ");
         transitionCharTextField = new JTextField();
+
         var lambdaButton = new JButton("λ");
         lambdaButton.addActionListener(e -> transitionCharTextField.setText("λ"));
 
@@ -45,30 +44,26 @@ public class TransitionAddingWindow extends JDialog {
         fields.add(transitionCharTextField);
         fields.add(lambdaButton);
 
-        JButton applyButton = new JButton("Добавить переход");
+        JButton applyButton = new JButton("Удалить переход");
         applyButton.addActionListener(e -> onApplyButton());
 
         add(fields, BorderLayout.CENTER);
         add(applyButton, BorderLayout.PAGE_END);
     }
 
-    private void onLambdaButton(){
-        transitionCharTextField.setText("λ");
-    }
-
-
     private void onApplyButton(){
         try {
             var firstNodeName = firstNodeTextField.getText();
             var secondNodeName = secondNodeTextField.getText();
             var transition = transitionCharTextField.getText();
-            if (transition.length() !=  1)
-                throw new Exception("Символ перехода должен быть длины 1");
             if (firstNodeName.isEmpty() || secondNodeName.isEmpty())
                 throw new Exception("Имя вершины не должно быть пустым");
-            TransitionChar transitionChar = new TransitionChar(transition.charAt(0));
+            if (transition.length() != 1)
+                throw new Exception("Символ перехода должен быть длины 1");
 
-            machine.addTransition(firstNodeName, secondNodeName, transitionChar);
+            var transitionChar = new TransitionChar(transition.charAt(0));
+
+            machine.removeTransition(firstNodeName, secondNodeName, transitionChar);
             this.dispose();
         }catch (Exception e){
             JOptionPane.showMessageDialog(this, e.getMessage());
@@ -80,7 +75,7 @@ public class TransitionAddingWindow extends JDialog {
         machine.addNode("first");
         machine.addNode("second");
         machine.addTransition("first", "second", new TransitionChar('a'));
-        var window = new TransitionAddingWindow(machine, null);
+        var window = new TransitionRemovingWindow(machine, null);
         window.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         window.setVisible(true);
     }

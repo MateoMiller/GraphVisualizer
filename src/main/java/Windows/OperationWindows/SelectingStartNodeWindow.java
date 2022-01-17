@@ -1,4 +1,4 @@
-package Windows;
+package Windows.OperationWindows;
 
 import Infrastructure.StateMachine;
 import Infrastructure.TransitionChar;
@@ -6,14 +6,14 @@ import Infrastructure.TransitionChar;
 import javax.swing.*;
 import java.awt.*;
 
-public class FinalNodeRemovingWindow extends JDialog {
+public class SelectingStartNodeWindow extends JDialog {
     StateMachine machine;
     JTextField nameTextField;
 
-    public FinalNodeRemovingWindow(StateMachine machine, JFrame parent){
+    public SelectingStartNodeWindow(StateMachine machine, JFrame parent){
         super(parent);
         this.machine = machine;
-        this.setTitle("Удалить конечное состояние");
+        this.setTitle("Выбрать стартовое состояние");
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize(Math.round(dim.width * 0.5f), Math.round(dim.height * 0.5f));
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
@@ -27,7 +27,7 @@ public class FinalNodeRemovingWindow extends JDialog {
         fields.add(nameLabel);
         fields.add(nameTextField);
 
-        JButton applyButton = new JButton("Удалить");
+        JButton applyButton = new JButton("Добавить");
         applyButton.addActionListener(e -> onApplyButton());
 
         add(fields, BorderLayout.CENTER);
@@ -39,7 +39,7 @@ public class FinalNodeRemovingWindow extends JDialog {
             var name = nameTextField.getText();
             if (name.isEmpty())
                 throw new Exception("Имя вершины не должно быть пустым");
-            machine.removeFinalNode(name);
+            machine.setStartNode(name);
             this.dispose();
         }catch (Exception e){
             JOptionPane.showMessageDialog(this, e.getMessage());
@@ -51,7 +51,7 @@ public class FinalNodeRemovingWindow extends JDialog {
         machine.addNode("first");
         machine.addNode("second");
         machine.addTransition("first", "second", new TransitionChar( 'a'));
-        var window = new FinalNodeRemovingWindow(machine, null);
+        var window = new SelectingStartNodeWindow(machine, null);
         window.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         window.setVisible(true);
     }

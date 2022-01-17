@@ -2,7 +2,7 @@ package TransitionTableStuff;
 
 import Infrastructure.StateMachine;
 
-public class GraphToTransitionTableConverter {
+public class MachineToTransitionTableConverter {
     public TransitionTable convert(StateMachine machine) {
         var alphabet = machine.getAlphabet();
         var nodes = machine.getNodes();

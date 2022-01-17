@@ -1,4 +1,4 @@
-package Windows;
+package Windows.OperationWindows;
 
 import Infrastructure.StateMachine;
 import Infrastructure.TransitionChar;

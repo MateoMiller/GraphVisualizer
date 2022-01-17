@@ -1,5 +1,5 @@
 import Infrastructure.StateMachine;
-import TransitionTableStuff.GraphToTransitionTableConverter;
+import TransitionTableStuff.MachineToTransitionTableConverter;
 import TransitionTableStuff.TransitionTable;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.not;
 
 public class GraphToTransitionTableConverter_Should {
-    private final GraphToTransitionTableConverter converter = new GraphToTransitionTableConverter();
+    private final MachineToTransitionTableConverter converter = new MachineToTransitionTableConverter();
 
     @Test
     public void convert_ReturnEmpty_WhenEmptyStateMachineGiven(){

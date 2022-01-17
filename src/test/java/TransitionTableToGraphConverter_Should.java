@@ -1,12 +1,12 @@
 import Infrastructure.StateMachine;
 import TransitionTableStuff.TransitionTable;
-import TransitionTableStuff.TransitionTableToGraphConverter;
+import TransitionTableStuff.TransitionTableToMachineConverter;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TransitionTableToGraphConverter_Should {
-    public final TransitionTableToGraphConverter converter = new TransitionTableToGraphConverter();
+    public final TransitionTableToMachineConverter converter = new TransitionTableToMachineConverter();
 
     @Test
     public void convert_ReturnEmpty_TableIsEmpty(){

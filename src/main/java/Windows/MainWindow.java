@@ -1,9 +1,13 @@
 package Windows;
 
+import Algorithms.Minimalizing.MinimalizingAlgorithm;
+import Infrastructure.ObjectProvider;
 import Infrastructure.StateMachine;
 import Infrastructure.TransitionChar;
+import TransitionTableStuff.MachineToTransitionTableConverter;
 import Windows.GraphicalStuff.ConstantPalette;
 import Windows.GraphicalStuff.MachineVisualizer;
+import Windows.OperationWindows.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,35 +16,44 @@ import java.awt.image.BufferedImage;
 public class MainWindow extends JFrame {
     private final MachineVisualizer visualizer;
     private final ObjectProvider<StateMachine> machineProvider;
+    private final MachineToTransitionTableConverter toTransitionTableConverter;
     private final ImageIcon imageIcon;
 
     public MainWindow() {
         visualizer = new MachineVisualizer(new ConstantPalette());
+        toTransitionTableConverter = new MachineToTransitionTableConverter();
         var machine = new StateMachine();
         machineProvider = new ObjectProvider<>(machine);
 
-        machine.addNode("a");
-        machine.addNode("b");
-        machine.addNode("c");
-        machine.addTransition("a", "a", new TransitionChar());
-        machine.addTransition("a", "b", new TransitionChar());
-        machine.addTransition("a", "b", new TransitionChar('1'));
-        machine.addTransition("a", "c", new TransitionChar());
-        machine.addTransition("b", "a", new TransitionChar());
-        machine.addTransition("b", "b", new TransitionChar());
-        machine.addTransition("b", "c", new TransitionChar());
-        machine.addTransition("b", "c", new TransitionChar('1'));
-        machine.addTransition("b", "c", new TransitionChar('2'));
-        machine.addTransition("c", "a", new TransitionChar());
-        machine.addTransition("c", "b", new TransitionChar());
-        machine.addTransition("c", "b", new TransitionChar('1'));
-        machine.addTransition("c", "b", new TransitionChar('2'));
-        machine.addTransition("c", "c", new TransitionChar());
+        machine.addNode("1");
+        machine.addNode("2");
+        machine.addNode("3");
+        machine.addNode("4");
+        machine.addNode("5");
+        machine.addNode("6");
+        machine.addTransition("1", "6", new TransitionChar('a'));
+        machine.addTransition("1", "6", new TransitionChar('b'));
+        machine.addTransition("2", "2", new TransitionChar('a'));
+        machine.addTransition("2", "4", new TransitionChar('b'));
+        machine.addTransition("3", "5", new TransitionChar('a'));
+        machine.addTransition("3", "6", new TransitionChar('b'));
+        machine.addTransition("4", "1", new TransitionChar('a'));
+        machine.addTransition("4", "3", new TransitionChar('b'));
+        machine.addTransition("5", "5", new TransitionChar('a'));
+        machine.addTransition("5", "5", new TransitionChar('b'));
+        machine.addTransition("6", "5", new TransitionChar('a'));
+        machine.addTransition("6", "5", new TransitionChar('b'));
+
+        machine.setStartNode("2");
+
+        machine.addFinalNode("1");
+        machine.addFinalNode("3");
+
         imageIcon = new ImageIcon();
         add(new JLabel(imageIcon));
 
         JMenuBar menu = new JMenuBar();
-        InitGraphSettingFunctions(menu);
+        InitMachineEditFunctions(menu);
         InitOperations(menu);
         InitAlgorithms(menu);
         this.setJMenuBar(menu);
@@ -53,27 +66,19 @@ public class MainWindow extends JFrame {
         repaint();
     }
 
-    private void InitGraphSettingFunctions(JMenuBar menu) {
-        JMenu settingsMenu = new JMenu("Таблицы переходов");
+    private void InitMachineEditFunctions(JMenuBar menu) {
+        JMenu editMenu = new JMenu("Редактировать");
 
-        JMenuItem setGraphFromTransitionTableItem = new JMenuItem("Задать автомат таблицей переходов");
-        setGraphFromTransitionTableItem.addActionListener(e -> setGraphFromTransitionTable());
+        JMenuItem setGraphFromTransitionTableItem = new JMenuItem("Редактировать таблицу переходов");
+        setGraphFromTransitionTableItem.addActionListener(e -> editTransitionTable());
 
-        JMenuItem generateTransitionTableItem = new JMenuItem("Преобразовать текущий автомат к таблице переходов");
-        generateTransitionTableItem.addActionListener(e -> generateTransitionTable());
-
-        settingsMenu.add(setGraphFromTransitionTableItem);
-        settingsMenu.add(generateTransitionTableItem);
-
-        menu.add(settingsMenu);
+        editMenu.add(setGraphFromTransitionTableItem);
+        menu.add(editMenu);
     }
 
-    private void generateTransitionTable() {
-        System.out.println("Создаю таблицу переходов");
-    }
-
-    private void setGraphFromTransitionTable() {
-        System.out.println("Создаю автомат по таблице переходов");
+    private void editTransitionTable() {
+        var window = new TransitionTableWindow(machineProvider, this);
+        openChildWindow(window);
     }
 
     private void InitOperations(JMenuBar menu) {
@@ -121,14 +126,19 @@ public class MainWindow extends JFrame {
         minimalMachineItem.addActionListener(e -> minimalize());
 
 
-        algorithmMenu.add(determiningItem);
+        //algorithmMenu.add(determiningItem);
         algorithmMenu.add(minimalMachineItem);
 
         menu.add(algorithmMenu);
     }
 
     private void minimalize() {
-        System.out.println("Минимализирую");
+        var machine =machineProvider.getObject();
+        var transitionTable = toTransitionTableConverter.convert(machine);
+        var algorithm = new MinimalizingAlgorithm(machine);
+        var algorithmPanel = new MinimalizingPanel(transitionTable);
+        var window = new AlgorithmWindow(this, machine, algorithm, algorithmPanel);
+        openChildWindow(window);
     }
 
     private void determine() {
