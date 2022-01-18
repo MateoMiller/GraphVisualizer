@@ -71,6 +71,12 @@ public class StateMachine {
 
     public void removeNode(String nodeName) {
         var nodeToRemove = findNodeByName(nodeName);
+
+        if (nodeToRemove == startNode)
+            startNode = null;
+
+        finalNodes.remove(nodeToRemove);
+        
         nodes.remove(nodeToRemove);
         for (var i = 0; i < nodeToRemove.edges.size(); i++){
             removeEdge(nodeToRemove, nodeToRemove.edges.get(i));

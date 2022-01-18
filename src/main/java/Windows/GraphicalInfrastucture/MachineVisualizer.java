@@ -210,8 +210,6 @@ public class MachineVisualizer {
         if (Math.cos(angle) <= 0)
             angle += Math.PI;
 
-        //Доделать поворот на бок
-
         AffineTransform transform = g.getTransform();
         var width = g.getFontMetrics().stringWidth(text);
         transform.translate(position.x - width / 2, position.y);

@@ -30,14 +30,14 @@ public class MinimalizingPanel extends AlgorithmPanel {
                 calculateTotalNodesCount(minimalizingStep) + 1));
 
 
-        add(new JLabel());
+        add(new JLabel("Группа"));
         for (var group : groups) {
             for (var state: group.states) {
                 add(new JLabel(group.groupName));
             }
         }
 
-        add(new JLabel());
+        add(new JLabel("Состояние"));
         for (var group : groups) {
             for (var state: group.states) {
                 add(new JLabel(state));

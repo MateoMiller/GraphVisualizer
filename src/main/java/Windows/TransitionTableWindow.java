@@ -34,8 +34,8 @@ public class TransitionTableWindow extends JDialog {
 
         var startStatePanel = new JPanel(new GridLayout(1, 2));
         startStatePanel.add(new JLabel("Входное состояние"));
-        var startState = machineProvider.getObject().getStartNode().name;
-        startStateField.setText(startState != null ? startState: "");
+        var startState = machineProvider.getObject().getStartNode();
+        startStateField.setText(startState != null ? startState.name: "");
         startStatePanel.add(startStateField);
         add(startStatePanel);
 
@@ -88,6 +88,8 @@ public class TransitionTableWindow extends JDialog {
         machine.addTransition("a", "c", new TransitionChar('3'));
         machine.addTransition("b", "a", new TransitionChar('3'));
         machine.addTransition("c", "b", new TransitionChar('3'));
+
+
         var machineProvider = new ObjectProvider<>(machine);
 
         var window = new TransitionTableWindow(machineProvider, null);
